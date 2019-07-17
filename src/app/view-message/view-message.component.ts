@@ -10,6 +10,7 @@ export class ViewMessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
