@@ -4,7 +4,16 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NbInputModule, NbLayoutModule, NbThemeModule} from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbChatModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbSearchModule,
+  NbThemeModule,
+  NbUserModule
+} from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {FooterComponent} from './mention legal/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -36,6 +45,11 @@ import { InputBarComponent } from './input-bar/input-bar.component';
     NbLayoutModule,
     NbEvaIconsModule,
     NbInputModule,
+    NbChatModule,
+    NbUserModule,
+    NbCardModule,
+    NbSearchModule,
+    NbButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
