@@ -2,17 +2,18 @@
 
   <nb-layout-header fixed>
     <img [routerLink]="['']" class="menulogo pointer" src="../assets/image/mainlogopng.png" alt="logo">
- <h1 [routerLink]="['']" class="pointer" >BeerToBear</h1>
+    <h1 [routerLink]="['']" class="pointer">BeerToBear</h1>
+    <p [routerLink]="['']" class="pointer mini-title">Messenger</p>
   </nb-layout-header>
 
   <nb-layout-column>
 
     <router-outlet></router-outlet>
-    
+
   </nb-layout-column>
 
   <nb-layout-footer fixed>
- contact us
+    contact us
     <a href=""> legal mention</a>
   </nb-layout-footer>
 

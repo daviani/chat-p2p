@@ -12,11 +12,11 @@
   text-align: center;
 }
 
-.div-button {
-  display: inline; /* the default for span */
+button {
+  display: inline;
   width: 100px;
+  margin: 25px;
   padding: 5px;
-  border: 1px solid blue;
 }
 p {
   margin-top: 15px;
