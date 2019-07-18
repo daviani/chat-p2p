@@ -26,7 +26,6 @@ import { InputBarComponent } from './input-bar/input-bar.component';
 
 @NgModule({
   declarations: [
-
     AppComponent,
     FooterComponent,
     HomeComponent,
