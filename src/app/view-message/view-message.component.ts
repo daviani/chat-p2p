@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-view-message',
@@ -6,11 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-message.component.scss']
 })
 export class ViewMessageComponent implements OnInit {
+  messages: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
   }
 
+  sendMessage($event: { message: string; files: File[] }) {
+  }
 }
