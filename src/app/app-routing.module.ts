@@ -6,13 +6,15 @@ import {MessengerMainComponent} from './messenger-main/messenger-main.component'
 import {RegisterComponent} from './register/register.component';
 import {AuthGuard} from "./auth/auth.guard";
 import {CallbackComponent} from "./callback/callback.component";
+import {FooterComponent} from './mention legal/footer.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'log', component: LogInComponent},
   {path: 'messenger-main', component: MessengerMainComponent, canActivate:[AuthGuard]},
   {path: 'register', component: RegisterComponent},
-  {path: 'callback', component: CallbackComponent}
+  {path: 'callback', component: CallbackComponent},
+  {path: 'footer', component: FooterComponent},
 ];
 
 @NgModule({

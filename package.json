@@ -14,7 +14,7 @@
     "@angular/animations": "~8.0.3",
     "@angular/cdk": "^8.0.0",
     "@angular/common": "~8.0.3",
-    "@angular/compiler": "~8.0.3",
+    "@angular/compiler": "~8.2.0",
     "@angular/core": "~8.0.3",
     "@angular/forms": "~8.0.3",
     "@angular/platform-browser": "~8.0.3",
@@ -26,9 +26,11 @@
     "@nebular/theme": "^4.1.2",
     "angular-jwt": "^0.1.11",
     "auth0-js": "^9.11.3",
-    "eva-icons": "^1.1.1",
-    "express": "^4.15.2",
     "moment": "^2.24.0",
+    "@types/express": "^4.17.0",
+    "@types/socket.io": "^2.1.2",
+    "eva-icons": "^1.1.1",
+    "express": "^4.17.1",
     "passport-local": "^1.0.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
@@ -36,12 +38,13 @@
     "socket.io": "^2.2.0",
     "socket.io-p2p-server": "^1.2.0",
     "tslib": "^1.9.0",
+    "typescript": "^3.5.3",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.6",
+    "@angular-devkit/build-angular": "^0.800.6",
     "@angular/cli": "~8.0.6",
-    "@angular/compiler-cli": "~8.0.3",
+    "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.0.3",
     "@schematics/angular": "~8.0.3",
     "@types/jasmine": "~3.3.8",
@@ -57,7 +60,6 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "tslint": "~5.15.0"
   }
 }
