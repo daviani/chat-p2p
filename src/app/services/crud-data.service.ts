@@ -6,4 +6,24 @@ import { Injectable } from '@angular/core';
 export class CrudDataService {
 
   constructor() { }
+
+  public autenticate(): void{
+
+  }
+
+  public createContact(): void{
+
+  }
+
+  public createRelation(): void{
+
+  }
+
+  public getContacts(): void{
+
+  }
+
+  public getContactById():void{
+
+  }
 }

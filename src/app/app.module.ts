@@ -23,6 +23,11 @@ import { RegisterComponent } from './register/register.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ViewMessageComponent } from './view-message/view-message.component';
 import { InputBarComponent } from './input-bar/input-bar.component';
+import {HttpClientModule} from "@angular/common/http";
+import { JwtModule } from '@auth0/angular-jwt';
+import {FormsModule} from "@angular/forms";
+import {JwtService} from "./services/jwt.service";
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +40,12 @@ import { InputBarComponent } from './input-bar/input-bar.component';
     ContactListComponent,
     ViewMessageComponent,
     InputBarComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({name: 'cosmic'}),
     NbLayoutModule,
@@ -49,8 +56,22 @@ import { InputBarComponent } from './input-bar/input-bar.component';
     NbCardModule,
     NbSearchModule,
     NbButtonModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function tokenGetter() {
+          return localStorage.getItem('access_token');
+        },
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['http://localhost:3000/auth/login']
+      }
+    }),
+    FormsModule
+
   ],
-  providers: [],
+  providers: [
+    JwtService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

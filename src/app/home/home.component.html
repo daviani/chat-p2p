@@ -1,9 +1,7 @@
 <h2 class="center">Welcome to BeerToBear Messenger</h2>
 <nb-layout-column class="center">
-  <img class="main-logo center" src="../../assets/image/mainlogopng.png" alt="main-logo">
- <div class="center col-8">
-       <p>BeerToBear messenger, the project of three students training as application developer designers at the Adrec school, Clermont-ferrand, Auvergne, France.</p>
-       <p>This application has been studied, developed, carried out and tested by Olivier, Anton and Daviani. We used, for the front office part, Angular, as well ass the Nebular library, concerning the back office we use the following technologies (end of the text to be completed) </p>
- </div>
-  <button [routerLink]="['log']" nbButton shape="round" size="medium">Begin</button>
+  <img class="mainlogo center" src="../../assets/image/mainlogopng.png" alt="mainlogo">
+  <p>BeerToBear messenger, the project of three students training as application developer designers at the Adrec school, Clermont-ferrand, Auvergne, France.</p>
+  <p>This application has been studied, developed, carried out and tested by Olivier, Anton and Daviani. We used, for the front office part, Angular, as well ass the Nebular library, concerning the back office we use the following technologies (end of the text to be completed) </p>
+  <button (click)="login()" nbButton shape="round" size="medium">Begin</button>
 </nb-layout-column>
