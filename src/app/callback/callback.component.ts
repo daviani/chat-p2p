@@ -13,7 +13,6 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit() {
     this.jwtService.handleAuthCallback();
-    console.log(this.jwtService.getUser$());
 
 
   }

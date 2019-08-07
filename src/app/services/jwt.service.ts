@@ -42,8 +42,8 @@ export class JwtService {
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
   // Create subject and public observable of user profile data
-  private userProfileSubject$ = new BehaviorSubject<any>(null);
-  userProfile$ = this.userProfileSubject$.asObservable();
+  private _userProfileSubject$ = new BehaviorSubject<any>(null);
+  userProfile$ = this._userProfileSubject$.asObservable();
   // Create a local property for login status
   loggedIn: boolean = null;
 
@@ -80,7 +80,7 @@ export class JwtService {
       if (response) {
         const user = response[0];
         const token = response[1];
-        this.userProfileSubject$.next(user);
+        this._userProfileSubject$.next(user);
         this.accessTokenSubject$.next(token);
       }
       this.loggedIn = !!response;
@@ -128,7 +128,7 @@ export class JwtService {
     // Response will be an array of user, token, and login status
     authComplete$.subscribe(([user, token, loggedIn]) => {
       // Update subjects and loggedIn property
-      this.userProfileSubject$.next(user);
+      this._userProfileSubject$.next(user);
       this.accessTokenSubject$.next(token);
       this.loggedIn = loggedIn;
       // Redirect to target route after callback processing
@@ -145,6 +145,11 @@ export class JwtService {
         returnTo: `${window.location.origin}`
       });
     });
+  }
+
+
+  get userProfileSubject$(): BehaviorSubject<any> {
+    return this._userProfileSubject$;
   }
 
 }
