@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {JwtService} from "../services/jwt.service";
+import {ContactService} from "../services/contact.service";
 
 @Component({
   selector: 'app-messenger-main',
@@ -8,9 +9,12 @@ import {JwtService} from "../services/jwt.service";
 })
 export class MessengerMainComponent implements OnInit,OnDestroy {
 
-  constructor(private jwtService:JwtService) { }
+  constructor(private jwtService:JwtService, private contact: ContactService) { }
 
   ngOnInit() {
+    this.jwtService.getUser$().subscribe((result:Array<object>)=>{
+      console.log(result['name']);
+    });
   }
 
   ngOnDestroy() {

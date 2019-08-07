@@ -16,5 +16,6 @@ export class ViewMessageComponent implements OnInit {
   }
 
   sendMessage($event: { message: string; files: File[] }) {
+    console.log($event.message);
   }
 }
