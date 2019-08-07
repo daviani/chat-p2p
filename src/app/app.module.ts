@@ -1,9 +1,10 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpModule } from '@angular/http';
+import { AppComponent } from './app.component';
+import { ChatService } from './services/chat.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NbButtonModule,
   NbCardModule,
@@ -28,6 +29,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import {FormsModule} from "@angular/forms";
 import {JwtService} from "./services/jwt.service";
 import { CallbackComponent } from './callback/callback.component';
+
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { CallbackComponent } from './callback/callback.component';
 
   ],
   providers: [
+    ChatService,
     JwtService
   ],
   bootstrap: [AppComponent]
