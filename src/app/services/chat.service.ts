@@ -1,34 +1,53 @@
 import io from 'socket.io-client';
 
-
 export class ChatService {
     private url = 'http://localhost:3000';
     private socket;
-
-    private _messages: Array<any> = [];
-              
+    //names: Array<any> = [];
+    messages: Array<any> = [];
+    user: string;
+                  
     constructor() 
     {
         this.socket = io(this.url);
-        console.log();
-        this._messages.push
+        this.getName()
+        //console.log(this.socket);
     }
-  
+    
+    public getName()
+    {
+        this.socket.on('getName', (name) => {
+            this.user = name
+            //this.names.push(name)
+        });
+        this.socket.on('newUser', (user) => {
+            console.log(user + ' joined us')
+        })
+    }
+
     public sendMessage(message: any) 
     {
         this.socket.emit('new-message', message);
-        console.log('Emit : ' + message);
-        
+        //console.log('Emit : ' + message);        
     }
-
-    public get Messages() {
-        return this._messages;
-    }
-   
+    
+    
     public getMessages() 
     {
-        this.socket.on('get', (message) => {
-        console.log('Socket-Receive: ' + message)
-        })};
+        this.socket.on('get', (msg: any) => {
+            console.log('Foo Bar' + ' : ' + msg);
+            this.messages.push({
+                text: msg,
+                date: new Date(),
+                reply: true,
+                user: {
+                  name: 'Foo Bar',
+                  avatar: 'TWO'
+                },
+              })
+        })
+    };
+  
+        
 
 }

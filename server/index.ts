@@ -19,13 +19,13 @@ const port = process.env.PORT || 3000;
 io.on('connection', (socket) => {
     const userName = 'U' + (socket.id).toString().substr(1, 4); // Generates a new nickname;
     console.log(userName + ' connected');
-    socket.broadcast.emit('newUser', userName); // Event 'newUser' to all;
-    
-    io.emit('TEST'); // Event 'userName' => Your new nickname;
+    socket.emit('newUser', userName); // Event 'newUser' to all;
+    let msg = 'hello';
+    io.emit('getName', userName); 
 
     socket.on('new-message', (message: any) => {
       console.log(userName + ' : ' + message);
-      socket.emit('get', message); 
+      socket.broadcast.emit('get', message); 
     });
 });
 

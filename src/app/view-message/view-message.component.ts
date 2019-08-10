@@ -15,30 +15,31 @@ export class ViewMessageComponent implements OnInit {
  
   constructor(private Service: ChatService) 
   {
-   
+    this.Service.getMessages();
+    this.messages = this.Service.messages
   }
 
   public sendMessage($event: { message: string; files: File[] }, 
   userName: string, avatar: string, reply: boolean) 
   {
   this.Service.sendMessage($event.message);
-  console.log('Component: ' + $event.message);
-
+  console.log(this.Service.user + ' : ' + $event.message);
   
-    this.messages.push({
+      this.messages.push({
       text: $event.message,
       date: new Date(),
-      reply: reply,
+      reply: false, 
       user: {
-        name: userName,
-        avatar: avatar
+        name: this.Service.user,
+        avatar: 'ONE'
       },
     })
   };
-  
-  
 
-  ngOnInit() {   };
+  ngOnInit() 
+  { 
+    
+  };
 
 
 }
