@@ -1,28 +1,23 @@
-let express = require('express')
-let app = express();
-
-let http = require('http');
-let server = http.Server(app);
-
-let p2pserver = require('socket.io-p2p-server').Server;
-
-let socketIO = require('socket.io');
-let io = socketIO(server);
-
+var express = require('express');
+var app = express();
+var http = require('http');
+var server = http.Server(app);
+var p2pserver = require('socket.io-p2p-server').Server;
+var socketIO = require('socket.io');
+var io = socketIO(server);
 io.use(p2pserver);
-
-
-const port = process.env.PORT || 3000;
-
-io.on('connection', (socket) => {
-    console.log('user connected');
-
-    socket.on('new-message', (message) => {
-      io.emit(message);
-      console.log('Server: ' + message);
+var port = process.env.PORT || 3000;
+io.on('connection', function (socket) {
+    var userName = 'U' + (socket.id).toString().substr(1, 4); // Generates a new nickname;
+    console.log(userName + ' connected');
+    socket.broadcast.emit('newUser', userName); // Event 'newUser' to all;
+    socket.emit('userName', userName); // Event 'userName' => Your new nickname;
+    
+    socket.on('new-message', function (message) {
+        io.emit(message);
+        console.log(userName + ' : ' + message);
     });
 });
-
-server.listen(port, () => {
-    console.log(`started on port: ${port}`);
+server.listen(port, function () {
+    console.log("started on port: " + port);
 });
