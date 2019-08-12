@@ -1,43 +1,83 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../entity/user";
 import {HttpClient} from "@angular/common/http";
 import {JwtService} from "./jwt.service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
-  public users : Array<User> ;
-  private user : User;
+  public users: Array<User>;
+  public friends: Array<User>;
+  public user: User;
 
-  constructor(private http:HttpClient, private jwtService: JwtService,) {
+
+  constructor(private http: HttpClient, private jwtService: JwtService,) {
     this.user = new User();
-    //this.getUserByEmail();
-  }
-
-
-  public getUserByEmail():void{
-    this.jwtService.getUser$().subscribe((result:Array<object>)=>{
-      this.user.email = result['email'];
-      this.http.get('http://localhost:3000/user/' + this.user.email).subscribe((resultat:Array<object>)=>{
-          this.user.id = Object.assign(this.user.id,result['id']);
-      });
-    });
-  }
-
-  public getUsers():void{
     this.users = [];
-    this.http.get('http://localhost:3000/users').subscribe((result:Array<object>)=>{
+    this.friends = [];
+  }
+
+  /**
+   * retrieve the email from the Json Web Token and put it into the user attribute of the object
+   * @return Observable
+   */
+  public getEmail(): Observable<void> {
+    return this.jwtService.getUser$().pipe(map((result:Array<object>)=>{
+      this.user.email = result['email'];
+    }));
+  }
+
+  /**
+   * request to the API the user's data using an email to retrieve the id and relations of this user
+   * put the data into the user attribute of the object
+   * @return Observable
+   */
+  public getUserByEmail(): Observable<void>  {
+      return this.http.get('http://localhost:3001/user/' + this.user.email).pipe(map((resultat: Array<object>) => {
+        this.user.id = resultat['data']['id'];
+        this.user.relations = this.user.relations.concat(resultat['data']['relations']);
+      }));
+  }
+
+  /**
+   * request to the API the user's data using an id and add the user to the friend's list
+   * @param id : number
+   * @return Observable
+   */
+  public getUserById(id:number): Observable<void>{
+    let usr = new User();
+    return this.http.get('http://localhost:3001/user/id/' + id).pipe(map((result: Array<object>)=>{
+      usr.id = result['data']['id'];
+      usr.email = result['data']['email'];
+      this.friends.push(usr);
+    }));
+  }
+
+  /**
+   * request to the API the list of all users in the database and put it into the users attribute of the object
+   */
+  public getUsers(): void {
+    this.http.get('http://localhost:3001/users').subscribe((result: Array<object>) => {
       this.users = result['data'].map((obj: object) => {
-        return Object.assign(new User(),obj);
+        return Object.assign(new User(), obj);
       });
     });
 
   }
-  public addUser(newUser: User):void{
-    console.log(newUser);
-    this.http.post<User>('http://localhost:3000/user', newUser).subscribe();
+
+  /**
+   * add to the database via a post request to the API a new user
+   * @param newUser : User
+   * @return Observable
+   */
+  public addUser(newUser: User): Observable<User> {
+    return this.http.post<User>('http://localhost:3001/user', newUser);
   }
+
+
 
 }

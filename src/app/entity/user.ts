@@ -5,6 +5,7 @@ export class User{
 
 
   constructor() {
+    this.relations = [];
   }
 
   get id(): number {
