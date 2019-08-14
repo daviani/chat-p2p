@@ -1,8 +1,10 @@
 import * as io from 'socket.io-client';
+import * as P2P from 'socket.io-p2p';
 
 export class ChatService {
     private url = 'http://localhost:3000';
     private socket;
+    private peer;
 
     //names: Array<any> = [];
     messages: Array<any> = [];
@@ -14,6 +16,7 @@ export class ChatService {
     constructor() 
     {
         this.socket = io(this.url);
+        this.peer = new P2P(this.socket);
         this.Connect();
         this.Disconnect();
         
