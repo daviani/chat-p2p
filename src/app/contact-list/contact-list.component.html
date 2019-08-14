@@ -1,9 +1,10 @@
 <nb-card>
   <nb-card-body>
-    <nb-user shape="round"
+    <nb-user *ngFor="let contact of contacts"
+             shape="round"
              size="medium"
-             name="John Doe"
-             title="Engineer"></nb-user>
+             [name]="contact.name"
+             [title]="contact.title"></nb-user>
   </nb-card-body>
 </nb-card>
 

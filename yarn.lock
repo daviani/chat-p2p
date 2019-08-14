@@ -477,6 +477,11 @@
   resolved "https://registry.yarnpkg.com/@types/socket.io-client/-/socket.io-client-1.4.32.tgz#988a65a0386c274b1c22a55377fab6a30789ac14"
   integrity sha512-Vs55Kq8F+OWvy1RLA31rT+cAyemzgm0EWNeax6BWF8H7QiiOYMJIdcwSDdm5LVgfEkoepsWkS+40+WNb7BUMbg==
 
+"@types/socket.io-p2p@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/socket.io-p2p/-/socket.io-p2p-2.2.0.tgz#01d82746cf16f41d8a5093a78914f13f90ddf286"
+  integrity sha512-Sj5nbgCjtwfK7jDwD6ibcEJcDUZpHaFKPQ9S4zHX/A+nHJfPcgHDuGkDBIGFZrpVrjE7dIpv6gQw8bY3/kngZw==
+
 "@types/socket.io@^2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@types/socket.io/-/socket.io-2.1.2.tgz#7165c2587cc3b86b44aa78e2a0060140551de211"
