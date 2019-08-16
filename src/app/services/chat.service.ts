@@ -3,46 +3,45 @@ import * as P2P from 'socket.io-p2p';
 
 export class ChatService {
     private url = 'http://localhost:3000';
-    private socket;
-    private peer;
+    private socket = io(this.url);
+    private peer: P2P;
 
     //names: Array<any> = [];
     messages: Array<any> = [];
     contacts: Array<any> = [];
     list: Array<any> = [];
-    sender: string;
+    user: string;
 
                   
     constructor() 
     {
-        this.socket = io(this.url);
-        this.peer = new P2P(this.socket);
         this.Connect();
         this.Disconnect();
-        
         //console.log(this.socket);
     }
     
-    public getName()
+    public getName(): void
     {
-        this.socket.on('getName', (name) => {
-        this.sender = name;
+        this.peer.on('getName', (name) => {
+        this.user = name;
         console.log('This Socket: ' + name);
         })
     };
 
-    public Connect () 
+    public Connect(): void
     {    
-        this.socket.on('newUser', (user) => {
+        this.peer = new P2P(this.socket);
+        this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
+        this.peer.on('newUser', (user) => {
             this.chatBot(user + ' connected');
             this.userList(user);
          })
-         this.updateContacts()
+         //this.updateContacts()
     };
 
-    public updateContacts()
+   /* public updateContacts(): void
     {
-        this.socket.on('list', (contacts) => 
+        this.peer.on('list', (contacts) => 
         { console.log(contacts);
             contacts.forEach((element) =>
             {  
@@ -55,11 +54,11 @@ export class ChatService {
                 }
             })
         })
-    } 
+    } */
 
-    public Disconnect()
+    public Disconnect(): void
     {
-        this.socket.on('off', (user: string) => {
+        this.peer.on('off', (user: string) => {
             this.chatBot(user + ' disconnected');
             let leave = this.contacts.findIndex(item => item.name == user);
             if (leave !== -1) {
@@ -67,13 +66,13 @@ export class ChatService {
             }})
     };
         
-    public sendMessage(message: any) 
+    public sendMessage(message: any): void 
     {
         this.socket.emit('new-message', message);
-        //console.log('Emit : ' + message);        
+        console.log('Emit : ' + message);        
     };
-    
-    public chatBot (msg: string)
+ 
+    public chatBot (msg: string): void
     {
         this.messages.push({
             reply: true,
@@ -84,9 +83,9 @@ export class ChatService {
           })
     };
     
-    public getMessages() 
+    public getMessages(): void 
     {
-        this.socket.on('get', (userName, message) => {
+        this.socket.on('get-message', (userName: string, message: any) => {
             console.log(userName + ' : ' + message);
             this.messages.push({
                 text: message,
@@ -100,13 +99,13 @@ export class ChatService {
         })
     };
     
-    private userList(item)
+    private userList(item): void
     {
         this.contacts.push({
             shape: "round",
             size: "medium",
             name: item,
-            title: 'User'
+            title: 'Peer'
         })
     }
         

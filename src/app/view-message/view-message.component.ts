@@ -28,7 +28,7 @@ export class ViewMessageComponent implements OnInit {
       date: new Date(),
       reply: false, 
       user: {
-        name: this.Service.sender,
+        name: this.Service.user,
         avatar: 'ON'
       },
     })

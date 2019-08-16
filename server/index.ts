@@ -25,21 +25,12 @@ IO.on('connection', (socket) => {
 
     contacts.push(userName);
     IO.emit('list', contacts);
-    function remove(array, element) {
-      return array.filter(el => el !== element);
-    }
-    //setInterval(sayHello, 300);
 
-    /*io.clients((error, clients) => {
-      if (error) throw error;
-      console.log(clients)
-      }); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]*/
-    
-
+    p2pserver(socket, null); // New Peer-to-Peer Server;
 
     socket.on('new-message', (message: any) => {
       console.log(userName + ' : ' + message);
-      socket.broadcast.emit('get', userName, message);
+      socket.broadcast.emit('get-message', userName, message);
     });
 
     socket.on('disconnect', function () {
@@ -50,12 +41,11 @@ IO.on('connection', (socket) => {
             contacts.splice(leave);
     }})
 
-    function Ok() 
-    {
-      IO.emit('list', contacts);
-    }
+
+      //IO.emit('list', contacts);
     
-    setInterval(Ok, 5000)
+    
+    //setInterval(Contacts, 5000)
 
 });
 
