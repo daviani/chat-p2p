@@ -2,15 +2,15 @@ import * as io from 'socket.io-client';
 import * as P2P from 'socket.io-p2p';
 
 export class ChatService {
+    
     private url = 'http://localhost:3000';
     private socket = io(this.url);
     private peer: P2P;
 
-    //names: Array<any> = [];
     messages: Array<any> = [];
     contacts: Array<any> = [];
-    list: Array<any> = [];
-    user: string;
+    list:     Array<any> = [];
+    user:     string;
 
                   
     constructor() 
@@ -24,7 +24,7 @@ export class ChatService {
     {
         this.peer.on('getName', (name) => {
         this.user = name;
-        console.log('This Socket: ' + name);
+        console.log('This Peer: ' + name);
         })
     };
 
@@ -71,18 +71,7 @@ export class ChatService {
         this.socket.emit('new-message', message);
         console.log('Emit : ' + message);        
     };
- 
-    public chatBot (msg: string): void
-    {
-        this.messages.push({
-            reply: true,
-            user: {
-              name: msg,
-              avatar: 'TWO'
-            },
-          })
-    };
-    
+     
     public getMessages(): void 
     {
         this.socket.on('get-message', (userName: string, message: any) => {
@@ -99,6 +88,8 @@ export class ChatService {
         })
     };
     
+    // Adding to Contacts:
+
     private userList(item): void
     {
         this.contacts.push({
@@ -108,6 +99,18 @@ export class ChatService {
             title: 'Peer'
         })
     }
-        
+    
+    // Service Messages:
+
+    public chatBot (msg: string): void
+    {
+        this.messages.push({
+            reply: true,
+            user: {
+              name: msg,
+              avatar: 'TWO'
+            },
+          })
+    };
 
 }

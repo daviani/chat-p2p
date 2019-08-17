@@ -4,7 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {LogInComponent} from './log-in/log-in.component';
 import {MessengerMainComponent} from './messenger-main/messenger-main.component';
 import {RegisterComponent} from './register/register.component';
-import {FooterComponent} from './mention legal/footer.component';
+import {FooterComponent} from './terms-of-use/footer.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
