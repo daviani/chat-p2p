@@ -2,7 +2,7 @@ import * as io from 'socket.io-client';
 import * as P2P from 'socket.io-p2p';
 
 export class ChatService {
-    
+
     private url = 'http://localhost:3000';
     private socket = io(this.url);
     private peer: P2P;
@@ -11,15 +11,14 @@ export class ChatService {
     contacts: Array<any> = [];
     list:     Array<any> = [];
     user:     string;
-      
-    constructor() 
 
+    constructor()
     {
         this.Connect();
         this.Disconnect();
         //console.log(this.socket);
     }
-    
+
     public getName(): void
     {
         this.peer.on('getName', (name) => {
@@ -29,7 +28,7 @@ export class ChatService {
     };
 
     public Connect(): void
-    {    
+    {
         this.peer = new P2P(this.socket);
         this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
         this.peer.on('newUser', (user) => {
@@ -41,10 +40,10 @@ export class ChatService {
 
    /* public updateContacts(): void
     {
-        this.peer.on('list', (contacts) => 
+        this.peer.on('list', (contacts) =>
         { console.log(contacts);
             contacts.forEach((element) =>
-            {  
+            {
                 let online = this.contacts.some(item => item.name === element)
                 console.log(online)
                 if (this.sender !== element && !online)
@@ -65,14 +64,14 @@ export class ChatService {
                 this.contacts.splice(leave, 1);
             }})
     };
-        
-    public sendMessage(message: any): void 
+
+    public sendMessage(message: any): void
     {
         this.socket.emit('new-message', message);
-        console.log('Emit : ' + message);        
+        console.log('Emit : ' + message);
     };
-     
-    public getMessages(): void 
+
+    public getMessages(): void
     {
         this.socket.on('get-message', (userName: string, message: any) => {
             console.log(userName + ' : ' + message);
@@ -87,7 +86,7 @@ export class ChatService {
               })
         })
     };
-    
+
     // Adding to Contacts:
 
     private userList(item): void
@@ -99,7 +98,7 @@ export class ChatService {
             title: 'Peer'
         })
     }
-    
+
     // Service Messages:
 
     public chatBot (msg: string): void
