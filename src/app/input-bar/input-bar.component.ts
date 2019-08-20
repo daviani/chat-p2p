@@ -14,15 +14,7 @@ export class InputBarComponent implements OnInit {
   constructor(private nbSearchService: NbSearchService, private contactService: ContactService) { }
 
   ngOnInit() {
-    //this.search();
+
   }
 
-  public search() : void {
-    this.nbSearchService.onSearchSubmit().subscribe((term)=>{
-      this.contactService.getNewFriend(term.term).subscribe(()=>{
-
-      })
-
-    })
-  }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from '../services/chat.service';
-import {JwtService} from "../services/jwt.service";
+import {ContactService} from "../services/contact.service";
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ViewMessageComponent implements OnInit {
 
 messages: Array<any> = [];
 
-  constructor(private Service: ChatService, private jwtService: JwtService)
+  constructor(private Service: ChatService, private contactService:ContactService)
   {
     this.Service.getName();
     this.Service.getMessages();
@@ -23,16 +23,16 @@ messages: Array<any> = [];
 
 
 
-  public sendMessage($event: { message: string; files: File[] }) 
+  public sendMessage($event: { message: string; files: File[] })
   {
   this.Service.sendMessage($event.message);
-    
+
       this.messages.push({
       text: $event.message,
       date: new Date(),
-      reply: false, 
+      reply: false,
       user: {
-        name: this.Service.user,
+        name: this.contactService.user.email,
         avatar: 'ON'
       },
     })

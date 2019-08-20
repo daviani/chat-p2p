@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ContactService} from "../services/contact.service";
-import {NbSearchService} from "@nebular/theme";
-import { ChatService } from '../services/chat.service';
+import {ChatService} from '../services/chat.service';
 
 
 @Component({
@@ -15,16 +14,13 @@ export class ContactListComponent implements OnInit {
   contacts: Array<any> = [];
 
 
-  constructor(private Service: ChatService, private contactService:ContactService )
-   {
-      this.Service.contacts = this.contacts;
-   }
+  constructor(private service: ChatService, private contactService: ContactService) {
+    this.service.contacts = this.contacts;
+  }
 
 
   ngOnInit() {
     //this.load();
-
-
   }
 
 
@@ -32,30 +28,20 @@ export class ContactListComponent implements OnInit {
    * retrieve the user's data,
    * if it's a new user add it to the database otherwise load the friends list
    */
-  /*private load():void{
+  private load(): void {
     this.contactService.getEmail().subscribe(()=>{
-      this.contactService.getUserByEmail(this.contactService.user.email).subscribe(()=>{
-        // @ts-ignore
-        if(this.contactService.user.id == ''){
-          //new user : add it to the database
-          this.contactService.addUser(this.contactService.user).subscribe();
-        }else {
-          //identified user : load the friends list
-          this.loadContact();
-        }
+      this.contactService.getUsers().subscribe(()=>{
+        //new user : add it to the database
+        //this.service.Connect(this.contactService.user.email);
+        this.contactService.addUser(this.contactService.user).subscribe();
       });
     });
-  }*/
 
-  /**
-   * Retrieve the information of each relation of the user
-   */
-  /*private loadContact():void{
-    this.contactService.friends.length = 0;
-    this.contactService.user.relations.forEach((element)=>{
-      this.contactService.getUserById(element).subscribe();
-    })
-  }*/
+
+
+
+
+  }
 
 
 }
