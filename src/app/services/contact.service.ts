@@ -13,10 +13,12 @@ export class ContactService {
   public users: Array<User>;
   public friends: Array<User>;
   public user: User;
+  public newFriend: User;
 
 
   constructor(private http: HttpClient, private jwtService: JwtService,) {
     this.user = new User();
+    this.newFriend = new User();
     this.users = [];
     this.friends = [];
   }
@@ -36,11 +38,29 @@ export class ContactService {
    * put the data into the user attribute of the object
    * @return Observable
    */
-  public getUserByEmail(): Observable<void>  {
-      return this.http.get('http://localhost:3001/user/' + this.user.email).pipe(map((resultat: Array<object>) => {
+  public getUserByEmail(user:string): Observable<void>  {
+      return this.http.get('http://localhost:3001/user/' + user).pipe(map((resultat: Array<object>) => {
         this.user.id = resultat['data']['id'];
         this.user.relations = this.user.relations.concat(resultat['data']['relations']);
       }));
+  }
+
+  /**
+   * Retrieve information of a potential new friend.
+   * If this friend exist in the database add a new relation between the user and the new friend
+   * @param user
+   * @return Observable
+   */
+  public getNewFriend(user:string): Observable<void> {
+    return this.http.get('http://localhost:3001/user/' + user).pipe(map((resultat: Array<object>)=>{
+      if (resultat['data']['id'] != ""){
+        this.newFriend.id = resultat['data']['id'];
+        this.newFriend.email = user;
+        this.user.relations.push(this.newFriend.id);
+        this.addRelation(this.user.id, this.newFriend.id).subscribe();
+        this.addRelation(this.newFriend.id, this.user.id).subscribe();
+      }
+    }));
   }
 
   /**
@@ -78,6 +98,16 @@ export class ContactService {
     return this.http.post<User>('http://localhost:3001/user', newUser);
   }
 
-
+  /**
+   * add to the database via a post request to the API a new relation between two users
+   * @return Observable
+   */
+  public addRelation(idUser:number, idFriend:number): Observable<Array<number>> {
+    let relation = {
+      id_user:idUser,
+      friend:idFriend
+    };
+    return this.http.post<Array<number>>('http://localhost:3001/relation', relation);
+  }
 
 }

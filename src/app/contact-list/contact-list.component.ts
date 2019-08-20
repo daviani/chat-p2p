@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ContactService} from "../services/contact.service";
+import {NbSearchService} from "@nebular/theme";
 
 @Component({
   selector: 'app-contact-list',
@@ -10,10 +11,13 @@ export class ContactListComponent implements OnInit {
 
 
 
-  constructor(private contactService:ContactService) { }
+  constructor(private contactService:ContactService, private nbSearchService: NbSearchService) { }
 
   ngOnInit() {
     this.load();
+    this.nbSearchService.onSearchSubmit().subscribe((term)=>{
+      this.loadContact();
+    })
 
   }
 
@@ -23,19 +27,27 @@ export class ContactListComponent implements OnInit {
    */
   private load():void{
     this.contactService.getEmail().subscribe(()=>{
-      this.contactService.getUserByEmail().subscribe(()=>{
+      this.contactService.getUserByEmail(this.contactService.user.email).subscribe(()=>{
         // @ts-ignore
         if(this.contactService.user.id == ''){
           //new user : add it to the database
           this.contactService.addUser(this.contactService.user).subscribe();
         }else {
           //identified user : load the friends list
-          this.contactService.user.relations.forEach((element)=>{
-            this.contactService.getUserById(element).subscribe();
-          })
+          this.loadContact();
         }
       });
     });
+  }
+
+  /**
+   * Retrieve the information of each relation of the user
+   */
+  private loadContact():void{
+    this.contactService.friends.length = 0;
+    this.contactService.user.relations.forEach((element)=>{
+      this.contactService.getUserById(element).subscribe();
+    })
   }
 
 
