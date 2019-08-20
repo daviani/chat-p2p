@@ -6,7 +6,7 @@ import {MessengerMainComponent} from './messenger-main/messenger-main.component'
 import {RegisterComponent} from './register/register.component';
 import {AuthGuard} from "./auth/auth.guard";
 import {CallbackComponent} from "./callback/callback.component";
-import {FooterComponent} from './mention legal/footer.component';
+import {FooterComponent} from './terms-of-use/footer.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},

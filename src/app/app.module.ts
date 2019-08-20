@@ -15,7 +15,7 @@ import {
   NbUserModule
 } from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
-import {FooterComponent} from './mention legal/footer.component';
+import {FooterComponent} from './terms-of-use/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { MessengerMainComponent } from './messenger-main/messenger-main.component';

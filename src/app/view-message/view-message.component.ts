@@ -7,37 +7,38 @@ import {JwtService} from "../services/jwt.service";
   selector: 'app-view-message',
   templateUrl: './view-message.component.html',
   styleUrls: ['./view-message.component.scss'],
-  providers: [ChatService]
+  //providers: [ChatService]
 })
 export class ViewMessageComponent implements OnInit {
 
-  messages: any [] = [];
 
-  constructor(private Service: ChatService, private jwtService: JwtService) {
+messages: Array<any> = [];
+
+  constructor(private Service: ChatService, private jwtService: JwtService)
+  {
+    this.Service.getName();
+    this.Service.getMessages();
+    this.messages = this.Service.messages;
   }
 
 
-  public sendMessage($event: { message: string; files: File[] },
-                     userName: string, avatar: string, reply: boolean) {
-    this.Service.sendMessage($event.message);
-    console.log('Component: ' + $event.message);
 
-    this.Service.getMessages();
-    this.jwtService.getUser$().subscribe((result: Array<object>) => {
+  public sendMessage($event: { message: string; files: File[] }) 
+  {
+  this.Service.sendMessage($event.message);
+    
       this.messages.push({
-        text: $event.message,
-        date: new Date(),
-        reply: reply,
-        user: {
-          name: result['nickname'],
-          avatar: avatar
-        },
-      })
+      text: $event.message,
+      date: new Date(),
+      reply: false, 
+      user: {
+        name: this.Service.user,
+        avatar: 'ON'
+      },
     })
 
 
   };
-
 
   ngOnInit() {
 
