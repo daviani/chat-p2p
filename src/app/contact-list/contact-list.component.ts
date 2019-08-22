@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ContactService} from "../services/contact.service";
-import {ChatService} from '../services/chat.service';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { ChatService } from '../services/chat.service';
 
 
 @Component({
@@ -10,18 +10,15 @@ import {ChatService} from '../services/chat.service';
 })
 export class ContactListComponent implements OnInit {
 
-
   contacts: Array<any> = [];
 
-
-  constructor(private service: ChatService, private contactService: ContactService) {
-
-  }
-
+  constructor(private Service: ChatService, private contactService:ContactService )
+   {
+      this.Service.contacts = this.contacts;
+   }
 
   ngOnInit() {
     //this.load();
-    this.service.contacts = this.contacts;
   }
 
 
@@ -46,3 +43,4 @@ export class ContactListComponent implements OnInit {
 
 
 }
+
