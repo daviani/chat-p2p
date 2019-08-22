@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
+
 import {ContactService} from "../services/contact.service";
-=======
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ChatService } from '../services/chat.service';
->>>>>>> anton
 
 @Component({
   selector: 'app-contact-list',
@@ -13,25 +10,18 @@ import { ChatService } from '../services/chat.service';
 })
 export class ContactListComponent implements OnInit {
 
-<<<<<<< HEAD
-
-
-  constructor(private contactService:ContactService) { }
-=======
   contacts: Array<any> = [];
->>>>>>> anton
 
-  constructor(private Service: ChatService )
+  constructor(private Service: ChatService, private contactService:ContactService )
    {
       this.Service.contacts = this.contacts;
    }
    
   ngOnInit() {
-    this.load();
+    //this.load();
 
   }
 
-<<<<<<< HEAD
   /**
    * retrieve the user's data,
    * if it's a new user add it to the database otherwise load the friends list
@@ -55,6 +45,5 @@ export class ContactListComponent implements OnInit {
 
 
 }
-=======
-  }
->>>>>>> anton
+
+ 
