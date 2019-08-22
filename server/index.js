@@ -19,8 +19,6 @@ IO.on('connection', function (socket) {
         contacts.push(user);
         IO.emit('list', contacts);
     });
-    //const userName = 'U' + (socket.id).toString().substr(1, 4); // Generates a new nickname;
-    console.log(contacts);
     p2pserver(socket, null); // New Peer-to-Peer Server;
     socket.on('new-message', function (message) {
         console.log(userName + ' : ' + message);

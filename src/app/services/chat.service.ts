@@ -17,7 +17,6 @@ export class ChatService {
   constructor(private contactService: ContactService) {
     this.Connect();
     this.Disconnect();
-    //console.log(this.socket);
   }
 
   public getName(): void {
@@ -28,27 +27,29 @@ export class ChatService {
   };
 
   public Connect(): void {
+
     this.peer = new P2P(this.socket);
     this.contactService.getEmail().subscribe(() => {
       this.peer.emit('newUser', this.contactService.user.email);
       this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
+      this.goPrivate();
+      this.peer.useSockets = false;
       this.peer.on('newUser', (user) => {
         this.chatBot(user + ' connected');
-        //this.userList(user);
         this.updateContacts();
-      })
+      });
     });
 
-
   };
+
+  public goPrivate():void{
+    this.peer.upgrade();
+  }
 
   public updateContacts(): void {
     this.peer.on('list', (contacts) => {
       contacts.forEach((element) => {
-        //let online = this.contacts.some(item => item.name === element)
         this.userList(element);
-        //return this.contacts
-
       })
     })
   }
@@ -68,19 +69,40 @@ export class ChatService {
     console.log('Emit : ' + message);
   };
 
-  public getMessages(): void {
-    this.socket.on('get-message', (userName: string, message: any) => {
-      console.log(userName + ' : ' + message);
-      this.messages.push({
-        text: message,
-        date: new Date(),
-        reply: true,
-        user: {
-          name: userName,
-          avatar: 'TWO'
-        },
+  public sendPrivateMessage(message: any): void{
+    this.peer.emit('new-message', message);
+  }
+
+
+  public getMessages(privateMode:number): void {
+    if (privateMode == 1){
+      this.peer.on('new-message', ( message: any) => {
+        console.log(message);
+        this.messages.push({
+          text: message,
+          date: new Date(),
+          reply: true,
+          user: {
+            name: 'userName',
+            avatar: 'TWO'
+          },
+        })
       })
-    })
+    }else{
+      this.socket.on('get-message', (userName: string, message: any) => {
+        console.log(userName + ' : ' + message);
+        this.messages.push({
+          text: message,
+          date: new Date(),
+          reply: true,
+          user: {
+            name: userName,
+            avatar: 'TWO'
+          },
+        })
+      })
+    }
+
   };
 
   // Adding to Contacts:

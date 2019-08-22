@@ -69,8 +69,11 @@ export class ContactService {
     return this.http.post<User>('http://localhost:3001/user', newUser);
   }
 
+  /**
+   * erase a user in the database via a delete request to the API
+   * @return Observable
+   */
   public deleteUser(): Observable<Object>{
-    console.log('ca entre');
     return this.http.delete('http://localhost:3001/user/' + this.user.email);
   }
 

@@ -13,11 +13,12 @@ export class ViewMessageComponent implements OnInit {
 
 
 messages: Array<any> = [];
+privateMode: number = 1;
 
   constructor(private Service: ChatService, private contactService:ContactService)
   {
     this.Service.getName();
-    this.Service.getMessages();
+    this.Service.getMessages(1);
     this.messages = this.Service.messages;
   }
 
@@ -25,7 +26,12 @@ messages: Array<any> = [];
 
   public sendMessage($event: { message: string; files: File[] })
   {
-  this.Service.sendMessage($event.message);
+    if (this.privateMode == 1){
+      this.Service.sendPrivateMessage($event.message)
+    }else{
+      this.Service.sendMessage($event.message);
+    }
+
 
       this.messages.push({
       text: $event.message,

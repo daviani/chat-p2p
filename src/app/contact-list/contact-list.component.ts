@@ -15,12 +15,13 @@ export class ContactListComponent implements OnInit {
 
 
   constructor(private service: ChatService, private contactService: ContactService) {
-    this.service.contacts = this.contacts;
+
   }
 
 
   ngOnInit() {
     //this.load();
+    this.service.contacts = this.contacts;
   }
 
 
