@@ -1,0 +1,27 @@
+.card-class {
+  padding: 2em;
+  max-width: 20em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+button {
+  display: inline; /* the default for span */
+  width: 100px;
+  margin: 25px;
+  padding: 5px;
+
+}
+p {
+  margin-top: 15px;
+}
+.center-text {
+  text-align: center;
+}

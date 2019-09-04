@@ -1,21 +1,17 @@
-<nb-chat
-  title="BeerToBear Messenger"
-  style='overflow:auto'
->
-  <nb-chat-message
-    *ngFor=" let message of messages"
-    [type]="message.type"
-    [message]="message.text"
-    [reply]="message.reply"
-    [sender]="message.user.name"
-    [date]="message.date"
-    [files]="message.files"
-    [quote]="message.quote"
-    [latitude]="message.latitude"
-    [longitude]="message.longitude"
-    [avatar]="message.user.avatar">
+<nb-chat title="BeerToBear Messenger">
+  <nb-chat-message *ngFor="let message of messages"
+                   [type]="message.type"
+                   [message]="message.text"
+                   [reply]="message.reply"
+                   [sender]="message.user.name"
+                   [date]="message.date"
+                   [files]="message.files"
+                   [quote]="message.quote"
+                   [latitude]="message.latitude"
+                   [longitude]="message.longitude"
+                   [avatar]="message.user.avatar">
   </nb-chat-message>
 
-  <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+  <nb-chat-form  (send)="sendMessage($event)" [dropFiles]="true">
   </nb-chat-form>
 </nb-chat>
