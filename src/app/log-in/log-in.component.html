@@ -1,0 +1,16 @@
+<h2 class="center">Sign in to BeerToBear</h2>
+<nb-card class="card-class" >
+  <nb-card-body class="example-items-col">
+    <p class="center">Address email</p>
+    <input class="center" type="email" [(ngModel)]="user.email" nbInput  shape="round" placeholder="">
+    <p class="center" >password</p>
+    <input class="center" type="password" [(ngModel)]="user.password" nbInput  shape="round" placeholder="">
+  </nb-card-body>
+</nb-card>
+  <button class="center" (click)="login()" nbButton shape="round" size="medium">Sign in</button>
+  <button routerLink="/register" class="center" nbButton shape="round" size="medium">Sign up</button>
+
+
+
+
+
