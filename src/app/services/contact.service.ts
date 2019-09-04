@@ -48,6 +48,7 @@ export class ContactService {
     }));
   }
 
+
   /**
    * request to the API the list of all users in the database and put it into the users attribute of the object
    */
