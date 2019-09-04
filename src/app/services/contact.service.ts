@@ -13,10 +13,12 @@ export class ContactService {
   public users: Array<User>;
   public friends: Array<User>;
   public user: User;
+  public newFriend: User;
 
 
   constructor(private http: HttpClient, private jwtService: JwtService,) {
     this.user = new User();
+    this.newFriend = new User();
     this.users = [];
     this.friends = [];
   }
@@ -31,17 +33,6 @@ export class ContactService {
     }));
   }
 
-  /**
-   * request to the API the user's data using an email to retrieve the id and relations of this user
-   * put the data into the user attribute of the object
-   * @return Observable
-   */
-  public getUserByEmail(): Observable<void>  {
-      return this.http.get('http://localhost:3001/user/' + this.user.email).pipe(map((resultat: Array<object>) => {
-        this.user.id = resultat['data']['id'];
-        this.user.relations = this.user.relations.concat(resultat['data']['relations']);
-      }));
-  }
 
   /**
    * request to the API the user's data using an id and add the user to the friend's list
@@ -60,12 +51,12 @@ export class ContactService {
   /**
    * request to the API the list of all users in the database and put it into the users attribute of the object
    */
-  public getUsers(): void {
-    this.http.get('http://localhost:3001/users').subscribe((result: Array<object>) => {
+  public getUsers(): Observable<void> {
+    return this.http.get('http://localhost:3001/users').pipe(map((result: Array<object>) => {
       this.users = result['data'].map((obj: object) => {
         return Object.assign(new User(), obj);
       });
-    });
+    }));
 
   }
 
@@ -78,6 +69,13 @@ export class ContactService {
     return this.http.post<User>('http://localhost:3001/user', newUser);
   }
 
+  /**
+   * erase a user in the database via a delete request to the API
+   * @return Observable
+   */
+  public deleteUser(): Observable<Object>{
+    return this.http.delete('http://localhost:3001/user/' + this.user.email);
+  }
 
 
 }

@@ -1,6 +1,8 @@
 {
   "name": "beer-to-bear",
   "version": "0.0.0",
+  "main": "electron/main.js",
+  "homepage": "./",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,6 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "electron": "ng build && electron .",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
@@ -40,9 +43,11 @@
     "auth0-js": "^9.11.3",
     "buffer": "^5.4.0",
     "commonjs": "^0.0.1",
+    "electron": "^6.0.3",
     "eva-icons": "^1.1.1",
     "express": "^4.17.1",
     "moment": "^2.24.0",
+    "ngx-electron": "^2.1.1",
     "passport-local": "^1.0.0",
     "process": "^0.11.10",
     "process-nextick-args": "^2.0.1",

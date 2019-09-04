@@ -15,15 +15,17 @@ IO.use(p2pserver);
 const port = process.env.PORT || 3000;
 
 IO.on('connection', (socket) => {
-    const userName = 'U' + (socket.id).toString().substr(1, 4); // Generates a new nickname;
     let contacts: Array<any> = [];
-
-    console.log(userName + ' connected');
-    IO.emit('newUser', userName);
-    socket.emit('getName', userName);
-
-    contacts.push(userName);
-    IO.emit('list', contacts);
+    let userName = null;
+    //retrieve the user nickname and push it to the other users
+    socket.on('newUser',(user:any)=>{
+      console.log(user + ' connected');
+      IO.emit('newUser', user);
+      socket.emit('getName', user);
+      userName = user;
+      contacts.push(user);
+      IO.emit('list', contacts);
+    });
 
     p2pserver(socket, null); // New Peer-to-Peer Server;
 
@@ -42,8 +44,8 @@ IO.on('connection', (socket) => {
 
 
       //IO.emit('list', contacts);
-    
-    
+
+
     //setInterval(Contacts, 5000)
 
 });

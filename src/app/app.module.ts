@@ -14,16 +14,19 @@ import {
   NbThemeModule, NbToggleModule,
   NbUserModule,
 } from '@nebular/theme';
-import { NbEvaIconsModule} from '@nebular/eva-icons';
-import { FooterComponent} from './terms-of-use/footer.component';
+import {NbEvaIconsModule} from '@nebular/eva-icons';
+import {FooterComponent} from './terms-of-use/footer.component';
 import { HomeComponent } from './home/home.component';
+import { LogInComponent } from './log-in/log-in.component';
 import { MessengerMainComponent } from './messenger-main/messenger-main.component';
+import { RegisterComponent } from './register/register.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ViewMessageComponent } from './view-message/view-message.component';
-import { HttpClientModule} from '@angular/common/http';
+import { InputBarComponent } from './input-bar/input-bar.component';
+import {HttpClientModule} from "@angular/common/http";
 import { JwtModule } from '@auth0/angular-jwt';
-import { FormsModule} from '@angular/forms';
-import { JwtService} from './services/jwt.service';
+import {FormsModule} from "@angular/forms";
+import {JwtService} from "./services/jwt.service";
 import { CallbackComponent } from './callback/callback.component';
 
 
@@ -32,9 +35,12 @@ import { CallbackComponent } from './callback/callback.component';
     AppComponent,
     FooterComponent,
     HomeComponent,
+    LogInComponent,
     MessengerMainComponent,
+    RegisterComponent,
     ContactListComponent,
     ViewMessageComponent,
+    InputBarComponent,
     CallbackComponent,
   ],
   imports: [
