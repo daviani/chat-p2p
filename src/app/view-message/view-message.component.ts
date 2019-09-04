@@ -38,7 +38,7 @@ privateMode: number = 1;
       date: new Date(),
       reply: false,
       user: {
-        name: this.contactService.user.email,
+        name: this.contactService.user.nickname,
         avatar: 'ON'
       },
     })

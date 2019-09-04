@@ -30,7 +30,7 @@ export class ChatService {
 
     this.peer = new P2P(this.socket);
     this.contactService.getEmail().subscribe(() => {
-      this.peer.emit('newUser', this.contactService.user.email);
+      this.peer.emit('newUser', this.contactService.user.nickname);
       this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
       this.goPrivate();
       this.peer.useSockets = false;
