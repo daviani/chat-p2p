@@ -6,14 +6,13 @@ import { ChatService } from './services/chat.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NbButtonModule,
-  NbToggleModule,
   NbCardModule,
   NbChatModule,
   NbInputModule,
   NbLayoutModule,
   NbSearchModule,
-  NbThemeModule,
-  NbUserModule
+  NbThemeModule, NbToggleModule,
+  NbUserModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule} from '@nebular/eva-icons';
 import { FooterComponent} from './terms-of-use/footer.component';
@@ -39,6 +38,7 @@ import { CallbackComponent } from './callback/callback.component';
     CallbackComponent,
   ],
   imports: [
+    NbToggleModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -63,8 +63,6 @@ import { CallbackComponent } from './callback/callback.component';
       }
     }),
     FormsModule,
-    NbToggleModule
-
   ],
   providers: [
     ChatService,
@@ -73,4 +71,4 @@ import { CallbackComponent } from './callback/callback.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-export class PageModule { }
+export class PageModule {}
