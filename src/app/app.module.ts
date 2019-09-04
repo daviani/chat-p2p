@@ -11,8 +11,8 @@ import {
   NbInputModule,
   NbLayoutModule,
   NbSearchModule,
-  NbThemeModule,
-  NbUserModule
+  NbThemeModule, NbToggleModule,
+  NbUserModule,
 } from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {FooterComponent} from './terms-of-use/footer.component';
@@ -44,6 +44,7 @@ import { CallbackComponent } from './callback/callback.component';
     CallbackComponent,
   ],
   imports: [
+    NbToggleModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -67,8 +68,7 @@ import { CallbackComponent } from './callback/callback.component';
         blacklistedRoutes: ['http://localhost:3000/auth/login']
       }
     }),
-    FormsModule
-
+    FormsModule,
   ],
   providers: [
     ChatService,
@@ -76,5 +76,5 @@ import { CallbackComponent } from './callback/callback.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
+export class PageModule {}
