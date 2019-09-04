@@ -12,14 +12,13 @@ export class ViewMessageComponent implements OnInit {
 
 
 messages: Array<any> = [];
-privateMode: number = 1;
-  // tslint:disable-next-line:variable-name
-  private _firstCard: any;
+
+privateMode: number = 0;
 
   constructor(private Service: ChatService, private contactService: ContactService)
   {
     this.Service.getName();
-    this.Service.getMessages(1);
+    this.Service.getMessages(0);
     this.messages = this.Service.messages;
   }
 
@@ -39,7 +38,7 @@ privateMode: number = 1;
       date: new Date(),
       reply: false,
       user: {
-        name: this.contactService.user.email,
+        name: this.contactService.user.nickname,
         avatar: 'ON'
       },
     })

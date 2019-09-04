@@ -29,7 +29,7 @@ export class ContactService {
    */
   public getEmail(): Observable<void> {
     return this.jwtService.getUser$().pipe(map((result:Array<object>)=>{
-      this.user.email = result['email'];
+      this.user.nickname = result['nickname'];
     }));
   }
 
@@ -43,10 +43,11 @@ export class ContactService {
     let usr = new User();
     return this.http.get('http://localhost:3001/user/id/' + id).pipe(map((result: Array<object>)=>{
       usr.id = result['data']['id'];
-      usr.email = result['data']['email'];
+      usr.nickname = result['data']['email'];
       this.friends.push(usr);
     }));
   }
+
 
   /**
    * request to the API the list of all users in the database and put it into the users attribute of the object
@@ -74,7 +75,7 @@ export class ContactService {
    * @return Observable
    */
   public deleteUser(): Observable<Object>{
-    return this.http.delete('http://localhost:3001/user/' + this.user.email);
+    return this.http.delete('http://localhost:3001/user/' + this.user.nickname);
   }
 
 
