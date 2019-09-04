@@ -15,8 +15,6 @@ function createWindow () {
   }});
 
   // and load the index.html of the app.
-  //win.loadFile('dist/beer-to-bear/index.html')
-  //win.loadURL('file://' + __dirname + '/index.html');
   win.loadURL(
     url.format({
       pathname: `build/beer-to-bear/index.html`,
@@ -29,33 +27,9 @@ function createWindow () {
 
   const {session: {webRequest}} = win.webContents;
 
-  const filter = {
-    urls: [
-      'file:///callback*'
-    ]
-  };
-
-  webRequest.onBeforeRequest(filter, async ({url}) => {
-
-    let win2 = new BrowserWindow({
-      width: 1200,
-      height: 900,
-      webPreferences: {
-        nodeIntegration: true
-      }});
-
-    await win2.loadURL(
-      require("url").format({
-        pathname: `build/beer-to-bear/index.html`,
-        protocol: "file:",
-        slashes: true,
-
-      })
-    );
-    win2.webContents.openDevTools()
-  });
   // Open the DevTools.
   win.webContents.openDevTools()
+
 
   // Emitted when the window is closed.
   win.on('closed', () => {
