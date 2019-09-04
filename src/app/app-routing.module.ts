@@ -9,7 +9,7 @@ import {CallbackComponent} from "./callback/callback.component";
 import {FooterComponent} from './terms-of-use/footer.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'log', component: LogInComponent},
   {path: 'messenger-main', component: MessengerMainComponent, canActivate:[AuthGuard]},
   {path: 'register', component: RegisterComponent},

@@ -12,6 +12,7 @@ export class MessengerMainComponent implements OnInit,OnDestroy {
   constructor(private jwtService:JwtService, private contactService: ContactService) { }
 
   ngOnInit() {
+
   }
 
   ngOnDestroy() {
