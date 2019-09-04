@@ -1,6 +1,6 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ContactService} from "../services/contact.service";
-import { Component, Injectable, OnInit } from '@angular/core';
-import { ChatService } from '../services/chat.service';
+import {ChatService} from '../services/chat.service';
 
 
 @Component({
@@ -21,7 +21,6 @@ export class ContactListComponent implements OnInit {
     //this.load();
   }
 
-
   /**
    * retrieve the user's data,
    * if it's a new user add it to the database otherwise load the friends list
@@ -34,9 +33,6 @@ export class ContactListComponent implements OnInit {
         this.contactService.addUser(this.contactService.user).subscribe();
       });
     });
-
-
-
 
 
   }

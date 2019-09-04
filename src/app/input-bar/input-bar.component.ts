@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NbSearchService} from "@nebular/theme";
-import {ContactService} from "../services/contact.service";
 
 @Component({
   selector: 'app-input-bar',
@@ -10,11 +8,9 @@ import {ContactService} from "../services/contact.service";
 export class InputBarComponent implements OnInit {
 
 
-
-  constructor(private nbSearchService: NbSearchService, private contactService: ContactService) { }
+  constructor() { }
 
   ngOnInit() {
-
   }
 
 }
