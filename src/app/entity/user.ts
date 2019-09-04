@@ -1,6 +1,6 @@
 export class User{
   private _id: number;
-  private _email: string;
+  private _nickname: string;
   public relations: Array<number>;
 
 
@@ -16,11 +16,11 @@ export class User{
     this._id = value;
   }
 
-  get email(): string {
-    return this._email;
+  get nickname(): string {
+    return this._nickname;
   }
 
-  set email(value: string) {
-    this._email = value;
+  set nickname(value: string) {
+    this._nickname = value;
   }
 }
