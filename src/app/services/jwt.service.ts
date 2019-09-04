@@ -50,7 +50,6 @@ export class JwtService {
   constructor(private router: Router) { }
 
   // getUser$() is a method because options can be passed if desired
-  // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options)))
@@ -93,12 +92,15 @@ export class JwtService {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
+
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
+      console.log(window.location.origin);
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}/callback`,
         appState: { target: redirectPath }
       });
+
     });
   }
 
