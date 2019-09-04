@@ -13,16 +13,14 @@ export class ContactListComponent implements OnInit {
 
   contacts: Array<any> = [];
 
-
-  constructor(private service: ChatService, private contactService: ContactService) {
-    this.service.contacts = this.contacts;
-  }
-
+  constructor(private Service: ChatService, private contactService:ContactService )
+   {
+      this.Service.contacts = this.contacts;
+   }
 
   ngOnInit() {
     //this.load();
   }
-
 
   /**
    * retrieve the user's data,
@@ -45,3 +43,4 @@ export class ContactListComponent implements OnInit {
 
 
 }
+
