@@ -15,7 +15,6 @@ messages: Array<any> = [];
 
 privateMode: number = 0;
 
-
   constructor(private Service: ChatService, private contactService: ContactService)
   {
     this.Service.getName();
