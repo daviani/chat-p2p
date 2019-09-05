@@ -17,6 +17,7 @@ export class ChatService {
   constructor(private contactService: ContactService) {
     this.Connect();
     this.Disconnect();
+    this.updateContacts();
   }
 
   public getName(): void {
@@ -31,28 +32,31 @@ export class ChatService {
     this.peer = new P2P(this.socket);
     this.contactService.getEmail().subscribe(() => {
       this.peer.emit('newUser', this.contactService.user.nickname);
-      this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
-      this.goPrivate();
-      this.peer.useSockets = false;
+      //this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
+      //this.peer.useSockets = false;
       this.peer.on('newUser', (user) => {
         this.chatBot(user + ' connected');
-        this.updateContacts();
       });
     });
 
   };
 
-  public goPrivate():void{
+  public goPrivate(): void{
     this.peer.upgrade();
   }
 
   public updateContacts(): void {
     this.peer.on('list', (contacts) => {
-      contacts.forEach((element) => {
-        this.userList(element);
-      })
-    })
-  }
+      console.log(contacts);
+          contacts.forEach((element) => 
+          {
+            if (this.contacts.findIndex(item => item.name) !== element)
+            {
+              this.userList(element);
+            }
+          }
+        )}
+      )};
 
   public Disconnect(): void {
     this.peer.on('off', (user: string) => {

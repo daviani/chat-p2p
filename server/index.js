@@ -7,8 +7,10 @@ var socket = require('socket.io');
 var IO = socket(server);
 IO.use(p2pserver);
 var port = process.env.PORT || 3000;
+var contacts = [];
+
 IO.on('connection', function (socket) {
-    var contacts = [];
+
     var userName = null;
     //retrieve the user nickname and push it to the other users
     socket.on('newUser', function (user) {
@@ -18,6 +20,7 @@ IO.on('connection', function (socket) {
         userName = user;
         contacts.push(user);
         IO.emit('list', contacts);
+        console.log(contacts)
     });
     p2pserver(socket, null); // New Peer-to-Peer Server;
     socket.on('new-message', function (message) {
