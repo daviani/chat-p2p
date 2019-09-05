@@ -29,6 +29,7 @@ IO.on('connection', function (socket) {
     });
     socket.on('disconnect', function () {
         IO.emit('off', userName);
+        socket.disconnect();
         console.log(userName + " disconnected");
         var leave = contacts.indexOf(userName);
         if (leave !== -1) {
