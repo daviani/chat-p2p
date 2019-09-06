@@ -18,7 +18,7 @@ messages: Array<any> = [];
   constructor(private Service: ChatService, private contactService: ContactService)
   {
     this.Service.getName();
-    this.Service.getMessages(this.Service.privateMode);
+    this.Service.getMessages();
     this.messages = this.Service.messages;
     this.Service.privateMode
   }
@@ -26,12 +26,9 @@ messages: Array<any> = [];
 
 
   public sendMessage($event: { message: string; files: File[] }) {
-    // tslint:disable-next-line:triple-equals
-    if (this.Service.privateMode == 1) {
-      this.Service.sendPrivateMessage($event.message);
-    } else {
+
       this.Service.sendMessage($event.message);
-    }
+    
 
 
     this.messages.push({

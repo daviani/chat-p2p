@@ -5,7 +5,7 @@ import {ContactService} from "./contact.service";
 
 export class ChatService {
 
-  private url = 'http://localhost:3000';
+  private url = 'http://localhost:3030';
   private socket = io(this.url);
   private peer: P2P;
 
@@ -19,6 +19,8 @@ export class ChatService {
     this.Connect();
     this.Disconnect();
     this.updateContacts();
+    //this.peerUpdate();
+    this.peer
   }
 
   public getName(): void {
@@ -29,8 +31,9 @@ export class ChatService {
   };
 
   public Connect(): void {
-
-    this.peer = new P2P(this.socket);
+    let opts = {autoUpgrade: true, numClients: 10};
+    this.peer = new P2P(this.socket, opts);
+    //this.peer.upgrade()
     this.contactService.getEmail().subscribe(() => {
       this.peer.emit('newUser', this.contactService.user.nickname);
         this.peer.on('newUser', (user) => {
@@ -42,13 +45,24 @@ export class ChatService {
 
   // Sets Peer-to-Peer Connection:
 
+  public peerUpdate(): void {
+    this.peer.on('go-private', () => {
+      console.log('PEEEER')
+    })
+    //this.peer.upgrade();
+    //this.chatBot('Beer-to-Bear!');
+    //this.peer.usePeerConnection = true;
+  }
+
   public goPrivate(): void { 
-      this.peer.upgrade();
+      console.log('OK')
+      this.peer.emit('go-private', true)
+      //this.peer.useSockets = false
       this.peer.usePeerConnection = true;
-      this.peer.useSockets = false;
+      this.peer.upgrade();
       this.chatBot('Beer-to-Bear!');
-      this.privateMode = 1;
-      console.log(this.privateMode)
+      //this.privateMode = 1;
+      //console.log(this.privateMode)
       }
   
     
@@ -58,11 +72,9 @@ export class ChatService {
       console.log(contacts);
           contacts.forEach((element) => 
           {
-            if (this.contacts.findIndex(item => item.name) !== element)
-            {
+            if (this.contacts.findIndex(item => item.name) !== element){
               this.userList(element);
-            }
-          }
+          }}
         )}
       )};
 
@@ -82,26 +94,12 @@ export class ChatService {
     console.log('Emit : ' + message);
   };
 
-  public sendPrivateMessage(message: any): void{
+  /*public sendPrivateMessage(message: any): void{
     this.peer.emit('new-message', message);
-  }
+  }*/
 
 
-  public getMessages(privateMode: number): void {
-    if (privateMode == 1){
-      this.peer.on('new-message', ( message: any) => {
-        console.log('P2P: ' + message);
-        this.messages.push({
-          text: message,
-          date: new Date(),
-          reply: true,
-          user: {
-            name: 'userName',
-            avatar: 'TWO'
-          },
-        })
-      })
-    }else{
+  public getMessages(): void {
       this.socket.on('get-message', (userName: string, message: any) => {
         console.log(userName + ' : ' + message);
         this.messages.push({
@@ -114,9 +112,7 @@ export class ChatService {
           },
         })
       })
-    }
-
-  };
+    };
 
   // Adding to Contacts:
 

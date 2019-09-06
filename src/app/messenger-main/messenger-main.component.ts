@@ -14,7 +14,7 @@ export class MessengerMainComponent implements OnInit, OnDestroy {
 
   public goPrivate(): void
   {
-    this.Service.goPrivate();
+    this.Service.goPrivate()
   }
 
   ngOnInit() {
