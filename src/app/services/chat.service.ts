@@ -64,10 +64,11 @@ export class ChatService {
   public updateContacts(): void {
     this.peer.on('list', (contacts) => {
       console.log(contacts);
-          contacts.forEach((element) => 
+          contacts.forEach((item) => 
           {
-            if (this.contacts.findIndex(item => item.name) != null){
-              this.userList(element);
+            if (this.contacts.findIndex(item => item.name !== item)){
+              this.userList(item);
+              console.log(item)
               console.log(this.contacts.findIndex(item => item.name))
           }}
         )}

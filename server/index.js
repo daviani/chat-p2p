@@ -1,18 +1,20 @@
-var express = require('express');
-var app = express();
-var http = require('http');
-var server = http.Server(app);
-var socket = require('socket.io');
-var p2pserver = require('socket.io-p2p-server').Server;
-var IO = socket(server);
+"use strict";
+
+let express = require('express');
+let app = express();
+let http = require('http');
+let server = http.Server(app);
+let socket = require('socket.io');
+let p2pserver = require('socket.io-p2p-server').Server;
+let IO = socket(server);
 IO.use(p2pserver);
-var port = process.env.PORT || 3000;
-var contacts = [];
+let port = process.env.PORT || 3000;
+let contacts = [];
 
 IO.on('connection', function (socket) {
 
     p2pserver(socket, null); // New Peer-to-Peer Server;
-    var userName = null;
+    let userName = null;
     //retrieve the user nickname and push it to the other users
     socket.on('newUser', function (user) {
         console.log(user + ' connected');
@@ -32,7 +34,7 @@ IO.on('connection', function (socket) {
         socket.disconnect();
         IO.emit('off', userName);
         console.log(userName + " disconnected");
-        var leave = contacts.indexOf(userName);
+        let leave = contacts.indexOf(userName);
         if (leave !== -1) {
             contacts.splice(leave);
         }
