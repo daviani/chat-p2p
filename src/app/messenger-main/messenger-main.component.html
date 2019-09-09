@@ -4,8 +4,9 @@
       <app-contact-list class="contact"></app-contact-list>
     </div>
     <div class="message col-8">
+      <nb-toggle class="p2pBtn" labelPosition="left" status="primary" (checkedChange)="goPrivate()">Enable P2P</nb-toggle>
       <app-view-message class="message"></app-view-message>
-    </div>
+     </div>
   </div>
 </div>
 

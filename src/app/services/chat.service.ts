@@ -17,6 +17,9 @@ export class ChatService {
   constructor(private contactService: ContactService) {
     this.Connect();
     this.Disconnect();
+    this.updateContacts();
+    this.peerUpdate();
+    this.peer
   }
 
   public getName(): void {
@@ -27,35 +30,52 @@ export class ChatService {
   };
 
   public Connect(): void {
-
-    this.peer = new P2P(this.socket);
+    let opts = {autoUpgrade: false, numClients: 10};
+    this.peer = new P2P(this.socket, opts);
     this.contactService.getEmail().subscribe(() => {
       this.peer.emit('newUser', this.contactService.user.nickname);
-      this.peer.usePeerConnection = true; // Sets Peer-to-Peer Connection
-      this.goPrivate();
-      this.peer.useSockets = false;
-      this.peer.on('newUser', (user) => {
+        this.peer.on('newUser', (user) => {
         this.chatBot(user + ' connected');
-        this.updateContacts();
       });
     });
 
   };
 
-  public goPrivate():void{
-    this.peer.upgrade();
-  }
+  // Sets Peer-to-Peer Connection:
 
-  public updateContacts(): void {
-    this.peer.on('list', (contacts) => {
-      contacts.forEach((element) => {
-        this.userList(element);
-      })
+  public peerUpdate(): void {
+    this.peer.on('go-private', () => {
+      console.log('Peer Connection Established');
+      this.peer.upgrade();
+      this.peer.useSockets = false;
+      this.chatBot('Beer-to-Bear!')
     })
   }
 
+  public goPrivate(): void { 
+      console.log('OK')
+      this.peer.emit('go-private', true)
+      this.peer.useSockets = false
+      this.peer.usePeerConnection = true;
+      this.peer.upgrade();
+      this.chatBot('Beer-to-Bear!');
+      }
+
+  public updateContacts(): void {
+    this.peer.on('list', (contacts) => {
+      console.log(contacts);
+          contacts.forEach((element) => 
+          {
+            if (this.contacts.findIndex(item => item.name) != null){
+              this.userList(element);
+              console.log(this.contacts.findIndex(item => item.name))
+          }}
+        )}
+      )};
+
   public Disconnect(): void {
     this.peer.on('off', (user: string) => {
+      this.peer.disconnect()
       this.chatBot(user + ' disconnected');
       let leave = this.contacts.findIndex(item => item.name == user);
       if (leave !== -1) {
@@ -69,26 +89,8 @@ export class ChatService {
     console.log('Emit : ' + message);
   };
 
-  public sendPrivateMessage(message: any): void{
-    this.peer.emit('new-message', message);
-  }
 
-
-  public getMessages(privateMode:number): void {
-    if (privateMode == 1){
-      this.peer.on('new-message', ( message: any) => {
-        console.log(message);
-        this.messages.push({
-          text: message,
-          date: new Date(),
-          reply: true,
-          user: {
-            name: 'userName',
-            avatar: 'TWO'
-          },
-        })
-      })
-    }else{
+  public getMessages(): void {
       this.socket.on('get-message', (userName: string, message: any) => {
         console.log(userName + ' : ' + message);
         this.messages.push({
@@ -101,9 +103,7 @@ export class ChatService {
           },
         })
       })
-    }
-
-  };
+    };
 
   // Adding to Contacts:
 
