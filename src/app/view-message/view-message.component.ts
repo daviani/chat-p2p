@@ -20,7 +20,6 @@ messages: Array<any> = [];
     this.Service.getName();
     this.Service.getMessages();
     this.messages = this.Service.messages;
-    this.Service.privateMode
   }
 
 

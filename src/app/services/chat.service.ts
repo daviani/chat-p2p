@@ -5,7 +5,7 @@ import {ContactService} from "./contact.service";
 
 export class ChatService {
 
-  private url = 'http://localhost:3030';
+  private url = 'http://localhost:3000';
   private socket = io(this.url);
   private peer: P2P;
 
@@ -13,13 +13,12 @@ export class ChatService {
   contacts: Array<any> = [];
   list: Array<any> = [];
   user: string;
-  privateMode: number = 0;
 
   constructor(private contactService: ContactService) {
     this.Connect();
     this.Disconnect();
     this.updateContacts();
-    //this.peerUpdate();
+    this.peerUpdate();
     this.peer
   }
 
@@ -31,9 +30,8 @@ export class ChatService {
   };
 
   public Connect(): void {
-    let opts = {autoUpgrade: true, numClients: 10};
+    let opts = {autoUpgrade: false, numClients: 10};
     this.peer = new P2P(this.socket, opts);
-    //this.peer.upgrade()
     this.contactService.getEmail().subscribe(() => {
       this.peer.emit('newUser', this.contactService.user.nickname);
         this.peer.on('newUser', (user) => {
@@ -47,33 +45,30 @@ export class ChatService {
 
   public peerUpdate(): void {
     this.peer.on('go-private', () => {
-      console.log('PEEEER')
+      console.log('Peer Connection Established');
+      this.peer.upgrade();
+      this.peer.useSockets = false;
+      this.chatBot('Beer-to-Bear!')
     })
-    //this.peer.upgrade();
-    //this.chatBot('Beer-to-Bear!');
-    //this.peer.usePeerConnection = true;
   }
 
   public goPrivate(): void { 
       console.log('OK')
       this.peer.emit('go-private', true)
-      //this.peer.useSockets = false
+      this.peer.useSockets = false
       this.peer.usePeerConnection = true;
       this.peer.upgrade();
       this.chatBot('Beer-to-Bear!');
-      //this.privateMode = 1;
-      //console.log(this.privateMode)
       }
-  
-    
 
   public updateContacts(): void {
     this.peer.on('list', (contacts) => {
       console.log(contacts);
           contacts.forEach((element) => 
           {
-            if (this.contacts.findIndex(item => item.name) !== element){
+            if (this.contacts.findIndex(item => item.name) != null){
               this.userList(element);
+              console.log(this.contacts.findIndex(item => item.name))
           }}
         )}
       )};
@@ -93,10 +88,6 @@ export class ChatService {
     this.socket.emit('new-message', message);
     console.log('Emit : ' + message);
   };
-
-  /*public sendPrivateMessage(message: any): void{
-    this.peer.emit('new-message', message);
-  }*/
 
 
   public getMessages(): void {

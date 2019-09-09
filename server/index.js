@@ -6,7 +6,7 @@ var socket = require('socket.io');
 var p2pserver = require('socket.io-p2p-server').Server;
 var IO = socket(server);
 IO.use(p2pserver);
-var port = process.env.PORT || 3030;
+var port = process.env.PORT || 3000;
 var contacts = [];
 
 IO.on('connection', function (socket) {
@@ -29,8 +29,8 @@ IO.on('connection', function (socket) {
         socket.broadcast.emit('get-message', userName, message);
     });
     socket.on('disconnect', function () {
-        IO.emit('off', userName);
         socket.disconnect();
+        IO.emit('off', userName);
         console.log(userName + " disconnected");
         var leave = contacts.indexOf(userName);
         if (leave !== -1) {
@@ -42,8 +42,6 @@ IO.on('connection', function (socket) {
         console.log('Peer Connection')
         socket.broadcast.emit('go-private', data)
       })
-    //IO.emit('list', contacts);
-    //setInterval(Contacts, 5000)
 });
 server.listen(port, function () {
     console.log("started on port: " + port);
