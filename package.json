@@ -40,7 +40,7 @@
     "@types/socket.io-client": "^1.4.32",
     "@types/socket.io-p2p": "^2.2.0",
     "angular-jwt": "^0.1.11",
-    "auth0-js": "^9.11.3",
+    "auth0-js": "^9.13.2",
     "buffer": "^5.4.0",
     "commonjs": "^0.0.1",
     "electron": "^6.0.3",
