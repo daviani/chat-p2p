@@ -43,7 +43,7 @@
     "auth0-js": "^9.11.3",
     "buffer": "^5.4.0",
     "commonjs": "^0.0.1",
-    "electron": "^6.0.3",
+    "electron": "^9.4.0",
     "eva-icons": "^1.1.1",
     "express": "^4.17.1",
     "moment": "^2.24.0",
