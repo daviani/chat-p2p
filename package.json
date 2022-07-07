@@ -46,7 +46,7 @@
     "electron": "^6.0.3",
     "eva-icons": "^1.1.1",
     "express": "^4.17.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-electron": "^2.1.1",
     "passport-local": "^1.0.0",
     "process": "^0.11.10",
