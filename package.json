@@ -45,7 +45,7 @@
     "commonjs": "^0.0.1",
     "electron": "^6.0.3",
     "eva-icons": "^1.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "moment": "^2.24.0",
     "ngx-electron": "^2.1.1",
     "passport-local": "^1.0.0",
